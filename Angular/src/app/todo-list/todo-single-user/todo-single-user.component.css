@@ -1,0 +1,228 @@
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto
+ }
+
+ .nav-item{
+     margin-left: 10vh;
+ }
+
+ .submenu{
+     margin-top: 8vh;
+    
+ }
+
+ .todobox{
+    margin-top: 19vh; 
+ }
+
+ .sidebar{
+    background-color: gray;
+    
+ }
+
+ .All-list-box{
+    font-weight:bold;
+    color: white;
+ }
+
+
+
+ .lists{
+     width: 100%;
+     margin-top: 1vh;
+      background-color: rosybrown;
+     padding-top: 1vh;
+
+     box-shadow: 0px 0px 1px 1px rgb(36, 36, 36);
+ 
+  
+ }
+
+ .listName{
+     padding-left: 1vh;
+    flex-wrap: wrap;
+    font-size: 1.1rem;
+     
+ }
+
+ .listbuttons{
+    font-weight:bold;
+    color: white;
+    padding-left: 7vh;
+
+ }
+
+ .listbuttons2{
+    box-shadow: 0px 0px 0.8px 0.9px rgb(37, 37, 37);
+     border-color: rgb(146, 145, 145);
+ }
+
+ .displaytext{
+     justify-content: center;
+ }
+
+ .items{
+    background-color: #51535c;
+    padding-top: 1vh;
+    text-align: left;
+    color: white;
+    box-shadow: 0px 0px 1px 1px rgb(0, 0, 0);
+}
+
+.itemsBlock{
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+#createdOn{
+   
+    font-size: 0.9rem;
+    margin-left: 1rem;
+}
+
+#createdOnItem{
+    font-size: 0.7rem;
+    margin-top: 1vh;
+}
+
+.itemName{
+   
+    padding-left: 2vh;
+}
+
+.itembuttons{
+
+    margin-top: 1vh;
+    margin-left: 20%;
+}
+
+.sideBar{
+    overflow: scroll;
+    height: 50vh;
+    overflow-x: hidden;
+  }
+
+.buttonPadding{
+    padding: 0vh;
+}
+
+.itemDone{
+    padding-top: 1vh;
+}
+
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+
+ @media only screen and (min-width: 992px) {
+    .nav-item {
+        margin-left: 80%;
+    }
+
+    .listName{
+     
+       flex-wrap: wrap;
+       font-size: 1.1rem;
+        
+    }
+
+    .todobox{
+        margin-top: 20vh; 
+        
+     }
+
+     .sidebar{
+        background-color: gray;
+        border-top-left-radius: 2vh;
+        border-bottom-left-radius: 2vh;
+        padding: 1.5vh;
+       
+     }
+
+     .user{
+         text-align: center;
+     }
+
+     .sideBar{
+        overflow: scroll;
+        height: 50vh;
+        overflow-x: hidden;
+      }
+
+      .subItemButtons{
+        margin-left: 20%;
+    }
+
+
+  }
+
+
+
+  @media only screen and (max-width: 575px) {
+
+    .itembuttons{
+        margin-left: 0%;
+        padding-bottom: 1vh;
+    }
+
+  }
+
+
+  @media only screen and (max-width: 768px) {
+
+    .listbuttons{
+      padding-right: 15vh;
+    
+    }
+
+  }
+
+
+  @media only screen and (max-width: 1199px) and (min-width: 768px)  {
+    .itembuttons{
+
+        margin-top: 1vh;
+        margin-left: 20%;
+    }
+
+    .listbuttons{
+        margin-left: 0vh;
+        padding-left: 0vh;
+    }
+
+    .listName{
+        padding-left: 1vh;
+       
+       font-size: 0.8rem;
+        
+    }
+
+    .tabletButton{
+        width: 30px; 
+        height: 30px;
+        font-size: 8px;
+    }
+  }
+
+
+  
+  @media only screen and (max-width: 575px) {
+
+    .itembuttons{
+        margin-left: 0%;
+        padding-bottom: 1vh;
+    }
+
+  }
+
+  

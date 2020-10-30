@@ -1,0 +1,539 @@
+<!---Header-->
+<div class="container-fluid ">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+    <a class="navbar-brand" href="/">My TodoList</a>
+
+    <div class="nav-item ">
+      <a class="nav-link" style="color: white;" (click)=logout()>LogOut</a>
+    </div>
+
+  </nav>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light  fixed-top submenu">
+  <button type="button" class="btn btn-info" (click)=multiTodo()><b>Multi-Todo-List</b></button>
+</nav>
+<!---END OF Header-->
+
+<!----Modals-->
+
+<!--Create list Modal-->
+<div class="modal" id="createList" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">List Name?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="listName" placeholder="listName" required autofocus
+          (keydown)="addListKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createList()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End of Create List Modal-->
+
+<!--Delete list Modal-->
+
+<div class="modal" id="deleteList" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="modal-title">Do you realy want to delete?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="deleteList()" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--End of Delete list Modal-->
+
+
+<!--Edit list Modal-->
+
+<div class="modal" id="editList" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="listName" placeholder="listName" required autofocus
+          (keydown)="editListKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editList()" data-dismiss="modal">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--End of Edit list Modal-->
+
+
+<!--Create Item Modal-->
+<div class="modal" id="createItem" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Item Name?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <label>Due Period  </label>
+      <div class="modal-body">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <select class="form-control" aria-placeholder="1" [(ngModel)]="duePeriod" name="duePeriod" style="width: 16vh;">
+            <option >0.01</option>
+            <option >0.10</option>
+            <option >0.30</option>
+            <option >1</option>
+            <option >2</option>
+            <option >3</option>
+            <option >4</option>
+            <option >5</option>
+            <option >6</option>
+            <option >7</option>
+            <option >8</option>
+            <option >9</option>
+            <option >10</option>
+            <option >11</option>
+            <option >12</option>
+            <option >13</option>
+            <option >14</option>
+            <option >15</option>
+            <option >16</option>
+            <option >17</option>
+            <option >18</option>
+            <option >19</option>
+            <option >20</option>
+            <option >21</option>
+            <option >22</option>
+            <option >23</option>
+            <option >24</option>
+
+          </select> <span>&nbsp;</span> hour
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button (click)="createPersonalItem()" data-dismiss="modal" type="button" class="btn btn-success">Personal</button>
+          <button (click)="createWorkItem()" data-dismiss="modal"  type="button" class="btn btn-warning">Work</button>
+          <button (click)="createShoppingItem()" data-dismiss="modal"  type="button" class="btn btn-danger">Shopping</button>
+        </div>
+      </div>
+    
+      <label>  Custom Name: </label>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName" required autofocus
+          (keydown)="addItemKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="createItem()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End of Create List Modal-->
+
+
+<!--Edit Item Modal-->
+<div class="modal" id="editItem" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Progress</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button data-dismiss="modal" (click)="itemProgress()" type="button" class="btn btn-warning">In-Progress</button>
+          <button  data-dismiss="modal" (click)="itemCompleted()" type="button" class="btn btn-danger">Completed</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editItem()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Item Name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName" required autofocus
+          (keydown)="editItemKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editItem()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add subItem Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="subItemName" placeholder="subItemName" required autofocus
+          (keydown)="addSubItemKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="createSubItem()">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--End of Edit Item Modal-->
+
+
+<!--Edit SubItem Modal-->
+
+<div class="modal" id="editSubItem" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="subItemName" placeholder="subItemName" required autofocus
+          (keydown)="editSubItemKeyPress($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editSubItem()" data-dismiss="modal">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--End of Edit SubItem Modal-->
+
+
+<!---END-OF-Modals-->
+
+<!--side menu-->
+<div class="container todobox">
+  <div class="row">
+    
+
+    <div class="col-md-3 sidebar">
+      <span class="user">
+        <p><b> Name:</b> {{ receiverName }} </p>
+        <p><b>Platform: </b> Private</p>
+      </span>
+
+      <div>
+        <button type="button" class="btn btn-info listbuttons2" data-toggle="modal" data-target="#createList">Add a List
+        </button>
+      </div>
+      <br>
+      <nav class="navbar navbar-dark bg-dark All-list-box justify-content-center">
+        <h5 style=" padding-top: 1vh;">All lists</h5>
+      </nav>
+
+      <div *ngIf="!listInfo">
+        Add A list
+      </div>
+      <!--List Card Display-->
+      <div class="sideBar" *ngIf="listInfo">
+        <ul *ngFor="let list of listInfo" style="list-style-type:none;">
+          <li *ngIf="(list.private==true)" (click)="getListInfo(list.listId,list.listName)">
+            <div class="row lists">
+              <div class="col-5 listName">
+                <p><b> {{list.listName}} </b></p>
+              </div>
+
+              <div class="col-7 listbuttons ">
+                <div class="btn-group" role="group">
+                  <button data-toggle="modal" data-target="#editList" type="button"
+                    class="btn btn-secondary listbuttons2 tabletButton buttonPadding">
+                    <!--Edit button-->
+                    <svg class="bi bi-pencil" width="1.8em" height="1.2em" viewBox="0 0 16 16" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"
+                        clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z"
+                        clip-rule="evenodd" />
+                    </svg>
+
+                  </button>
+                  <button data-toggle="modal" data-target="#deleteList" type="button"
+                    class="btn btn-secondary listbuttons2 tabletButton buttonPadding">
+                    <!--Delete icon-->
+                    <svg class="bi bi-trash" width="2em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                      <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <p id="createdOn"> <b>CreatedOn: </b> {{list.createdOn  | date: 'dd/MM/yy'}} </p>
+            </div>
+
+
+          </li>
+        </ul>
+      </div>
+      <!--End of List Card Display-->
+    </div>
+    <!--End of Side menu-->
+
+    <!--List Content Display-->
+    <div class="col-md-9" style="background-color: rgb(219, 214, 214);">
+      <div *ngIf="!listInfo; else noListSelect">
+        Create A list to create Items
+      </div>
+      <ng-template #noListSelect class="displaytext">
+        <div *ngIf="!listSelcted">
+          <p>Select a list to dispplay</p>
+        </div>
+      </ng-template>
+
+
+      <div class="container-fluid" *ngIf=listSelcted>
+
+        <!--List Name Display-->
+        <nav class="navbar  navbar-dark bg-dark " *ngIf=listName>
+          <span class="navbar-text">
+            <h4> {{listName}} </h4>
+          </span>
+          <button data-toggle="modal" data-target="#createItem" type="button" class="btn btn-info">Add Item</button>
+            <!--
+         
+          <button (click)=getUndoItem(listId) type="button" class="btn btn-info">
+            
+            <svg class="bi bi-arrow-counterclockwise" width="1.8em" height="1.5em" viewBox="0 0 16 16"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M12.83 6.706a5 5 0 00-7.103-3.16.5.5 0 11-.454-.892A6 6 0 112.545 5.5a.5.5 0 11.91.417 5 5 0 109.375.789z"
+                clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M7.854.146a.5.5 0 00-.708 0l-2.5 2.5a.5.5 0 000 .708l2.5 2.5a.5.5 0 10.708-.708L5.707 3 7.854.854a.5.5 0 000-.708z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+
+        -->
+        </nav>
+        <!--End of List Name Display-->
+        <br>
+
+        <!--Items Display-->
+        <div class="itemsBlock">
+          <!-- Search form -->
+
+          <form class="form-inline">
+          
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input [(ngModel)]="term" name="term" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by 'Name' or 'Status'"
+              aria-label="Search">
+          </form>
+
+          <br>
+
+          <ul *ngFor="let item of itemInfo| filter:term " style="list-style-type:none;">
+
+           
+            <li (click)="getItemInfo(item)">
+              <div class="">
+
+                <div class="row items">
+                  <div class="col-sm-3 itemName" [ngClass]="(item.isDone==='Due' )? 'strikethrough': null ">
+                  
+                        {{item.itemName}} <br>
+                    <p id="createdOnItem"> <b>Last Updated</b> {{item.modifiedOn | date: 'dd/MM/yy' }} </p>
+                  </div>
+
+                  <div class="col-sm-4 itemDone">
+                    <button type="button" class="btn btn-warning" >{{item.isDone}}</button>
+                   
+                  </div>
+                  
+
+                  <div class="col-sm-5">
+                    <div   class="btn-group listbuttons itembuttons" role="group">
+                    
+
+                      <button (click)="getUndoSubItem(item.itemId)" type="button"
+                      [ngClass]="(item.isDone==='Due' )? 'disabled': null "
+                         class="btn btn-secondary listbuttons2 buttonPadding">
+                        <!--Undo icon-->
+                        <svg class="bi bi-arrow-counterclockwise" width="1.8em" height="1.5em" viewBox="0 0 16 16"
+                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M12.83 6.706a5 5 0 00-7.103-3.16.5.5 0 11-.454-.892A6 6 0 112.545 5.5a.5.5 0 11.91.417 5 5 0 109.375.789z"
+                            clip-rule="evenodd" />
+                          <path fill-rule="evenodd"
+                            d="M7.854.146a.5.5 0 00-.708 0l-2.5 2.5a.5.5 0 000 .708l2.5 2.5a.5.5 0 10.708-.708L5.707 3 7.854.854a.5.5 0 000-.708z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+
+
+                      <button data-toggle="modal" data-target="#editItem" type="button"
+                      [ngClass]="(item.isDone==='Due' )? 'disabled': null "
+                        class="btn btn-secondary listbuttons2">
+                        <!--Edit icon-->
+                        <svg class="bi bi-pencil" width="1.8em" height="1.2em" viewBox="0 0 16 16" fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"
+                            clip-rule="evenodd" />
+                          <path fill-rule="evenodd"
+                            d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                      
+                      <button (click)="deleteItem(item)" type="button"
+                        class="btn btn-secondary listbuttons2 buttonPadding">
+                        <!--Delete icon-->
+                        <svg class="bi bi-trash" width="2em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                          <path fill-rule="evenodd"
+                            d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!--Sub Item Display-->
+                <div *ngIf="subItemInfo">
+                  <ul *ngFor="let subitem of subItemInfo">
+                    <li *ngIf="subitem.itemId==item.itemId">
+
+                      <div class="row ">
+                        <div class="col-md-4">
+                          <p [ngClass]="subitem.isDone? 'strikethrough': null "> {{subitem.subItemName}} </p>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="btn-group subItemButtons" role="group">
+                            <button (click)="subItemInformation(subitem)" type="button" class="btn btn-link">
+                              <div (click)="markDone(subitem.subItemId,subitem.subItemName)" *ngIf="subitem.isDone">
+                                <!---is Done-->
+                                <svg class="bi bi-check" width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd"
+                                    d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z"
+                                    clip-rule="evenodd" />
+                                </svg>
+                              </div>
+                              <div (click)="markUnDone(subitem.subItemId,subitem.subItemName)"
+                                *ngIf="subitem.isDone==false">
+                                <!--Undone-->
+                                <svg class="bi bi-x" width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd"
+                                    d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                    clip-rule="evenodd" />
+                                  <path fill-rule="evenodd"
+                                    d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                    clip-rule="evenodd" />
+                                </svg>
+                              </div>
+
+                            </button>
+
+                            <button (click)="sendSubItemId(subitem)" data-toggle="modal" data-target="#editSubItem"
+                              type="button" class="btn btn-link">
+                              <!--Edit button-->
+                              <svg class="bi bi-pencil" width="1.8em" height="1.2em" viewBox="0 0 16 16"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                  d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"
+                                  clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                  d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z"
+                                  clip-rule="evenodd" />
+                              </svg>
+                            </button>
+                            <button (click)="deleteSubItem(subitem)" type="button" class="btn btn-link">
+                              <!--Delete icon-->
+                              <svg class="bi bi-trash" width="2em" height="1.5em" viewBox="0 0 16 16"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                                <path fill-rule="evenodd"
+                                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                  clip-rule="evenodd" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </li>
+                  </ul>
+                </div>
+                <!--End of Sub Item Display-->
+
+              </div>
+
+            </li>
+          </ul>
+          <div *ngIf="!itemInfo">
+            Click On the List to refresh
+          </div>
+        </div>
+        <!--End of Item Display-->
+
+      </div>
+    </div>
+
+    <!--End of List Content Display-->
+  </div>
+
+</div>
+
+<!--Loader-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color: white">Please Wait. </p>  
+</ngx-spinner>

@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="/">My Todo List</a>
+  
+</nav>
+
+<div class="container-fluid">
+    <div *ngIf="(success==1)">
+
+        <div class="card text-center" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="card-header">
+             <b>  Email Verification </b>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Your Email is Verified!!</h3>
+              <p class="card-text">Login to start your <b>To Do List</b></p>
+              <button type="button" class="btn btn-primary" (click)="logIn()">Log In</button>
+            </div>
+          </div>
+
+
+    </div>
+    <div *ngIf="(success==-1)">
+        User Not verified.
+
+        
+    </div>
+</div>
+

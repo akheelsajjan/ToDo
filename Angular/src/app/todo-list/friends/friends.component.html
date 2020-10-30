@@ -1,0 +1,116 @@
+<!--Header-->
+<div class="container-fluid ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+        <a class="navbar-brand" href="/">My TodoList</a>
+
+        <div class="nav-item ">
+            <a class="nav-link" style="color: white;" (click)=logout()>LogOut</a>
+        </div>
+
+    </nav>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light  fixed-top submenu">
+    <button type="button" class="btn btn-info" (click)=multiTodo()><b>Multi-Todo-List</b></button> &nbsp;
+    Hello {{userName }}
+</nav>
+
+<!--End Header-->
+
+<div class="container-fluid todobox">
+
+    <div class="row">
+        <div class="col-sm border-right">
+
+            <nav class="navbar navbar-dark bg-dark">
+                <p style="font-weight:bold;color: white;">My Friends</p>
+            </nav>
+            <!--My Friends-->
+            <div class="container" *ngFor="let user of users1">
+                <div class="height" *ngIf="userId==user.userId">
+                    <ul *ngFor="let friend of user.friends">
+                        <li>
+                            <div class="row">
+                                <div class="col">
+                                    {{friend.friendName}}
+                                </div>
+                                <div class="col">
+                                    <button (click)=deletefriend(friend.friendId) type="button"
+                                        class="btn btn-secondary"> Un-Friend </button>
+                                </div>
+
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--End of My Friends-->
+
+        </div>
+        <div class="col-sm">
+
+            <nav class="navbar navbar-dark bg-dark">
+                <p style="font-weight:bold;color: white;">Requests</p>
+            </nav>
+
+            <!-- Friend Request-->
+            <div class="container height" *ngFor="let user of users1">
+                <ul *ngFor="let  req of user.requests">
+                    <li *ngIf="userId==req.receiverId">
+
+                        <div class="row">
+                            <div class="col">
+
+                                {{req.senderName}}
+                            </div>
+                            <div class="col">
+                                <div class="btn-group" role="group">
+                                    <button (click)=acceptRequest(req.senderId,req.senderName) type="button"
+                                        class="btn btn-primary">Accept </button>
+                                    <button (click)=rejectRequest(req.senderId) type="button"
+                                        class="btn btn-secondary">Reject </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- End of Friend Request-->
+        </div>
+
+
+        <div class="col-sm border-left">
+
+            <nav class="navbar navbar-dark bg-dark">
+                <p style="font-weight:bold;color: white;">All Users</p>
+            </nav>
+            <!--All Users-->
+            <div class="container" *ngIf="users1">
+                <ul *ngFor="let user of users1">
+                    <li *ngIf="(user.userId!=userId)">
+                        <div class="row">
+                            <div class="col">
+
+                                {{user.firstName}} {{user.lastName}}
+                            </div>
+                            <div class="col">
+                                <button (click)="sendRequest(user.userId)" type="button" class="btn btn-secondary">Send
+                                    Request</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--End All Users-->
+
+        </div>
+
+
+    </div>
+</div>
+
+<!--Loader-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Please Wait. </p>  
+  </ngx-spinner>

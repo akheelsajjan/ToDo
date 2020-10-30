@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+  <a class="navbar-brand" href="/">My Todo-List</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+
+        <a class="nav-link" (click)="goToSignIn()">Sign-In</a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<div class="row p-0 m-0">
+
+  <div class="col-sm"></div>
+
+  <div class="col-sm p-5">
+
+    <h2 class="form-signin-heading">Sign Up To Start Your Todo-List</h2>
+
+    <br>
+
+    <span>FirstName: </span>
+
+    <label for="inputFirstName" class="sr-only">FirstName</label>
+
+    <input type="text" id="inputFirstName" class="form-control" [(ngModel)]="firstName" placeholder="FirstName" required autofocus>
+
+    <br>
+
+    <span>LastName: </span>
+
+    <label for="inputLastName" class="sr-only">LastName</label>
+
+    <input type="text" id="inputLastName" class="form-control" [(ngModel)]="lastName" placeholder="LastName" required>
+
+    <br>
+    <span>Country Code: </span>
+
+    <label for="countryCode " class="sr-only">Country Code</label>
+
+    <select class="form-control" [(ngModel)]="countryCode" name="countryCode" style="width: 16vh;">
+      <option value="" >Select</option>
+      <option *ngFor="let i of code | keyvalue" >{{ i.key}} {{i.value}}</option>
+    </select>
+
+    <br>
+    <span>Mobile: </span>
+
+    <label for="inputMobile" class="sr-only">Mobile</label>
+
+    <input type="number" name="mobile" #mob="ngModel" id="inputMobile" class="form-control" [(ngModel)]="mobile" placeholder="Mobile" required
+         pattern="^\d{10}$"  [class.is-invalid]="mob.invalid && mob.touched" >
+        <div *ngIf="mob.errors && (mob.invalid || mob.touched)"> 
+          <small class="text-danger" *ngIf="mob.errors.pattern">Phone Number Must be 10 digits!!</small>      
+        </div>
+    <br>
+    <span>Email: </span>
+
+    <label for="inputEmail" class="sr-only">Email address</label>
+
+    <input type="email" id="inputEmail" class="form-control" [(ngModel)]="email" placeholder="Email address" required>
+
+    <br>
+
+    <span>Password: </span>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+
+    <input type="password" #pass="ngModel" id="inputPassword" class="form-control" [(ngModel)]="password" placeholder="Password" 
+       pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$"  [class.is-invalid]="pass.invalid && pass.touched"  required>
+        <div *ngIf="pass.errors && (pass.invalid || pass.touched)"> 
+          <small class="text-danger" *ngIf="pass.errors.pattern">Password must contain atleast one digit, (lowercase, Uppercase) character , 8 characters in length  but no more than 32  </small>      
+        </div>
+    <br>
+   
+
+   
+
+   
+
+  
+
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="signupFunction()">Sign Up</button>
+
+  </div>
+
+  <div class="col-sm"></div>
+
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color: white">Please Wait. </p>  
+  </ngx-spinner>
+
+
+
