@@ -20,9 +20,9 @@ export class SignupComponent implements OnInit {
   public password: any;
   public code:any = [];
   public countryCode:any
-  
 
-  constructor(  
+
+  constructor(
 
     public appService: AppService,
     public router: Router,
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
     private SpinnerService: NgxSpinnerService
 
     ) {
-     
+
      }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
     this.appService.getCountryCode().subscribe(
       (data)=>{
         this.code = data;
-       
+
       },(error)=>{
           this.toastr.error("Some error occured","Please try again later");
       }
@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit {
 
   } // end goToSignIn
 
-  
+
 
 
 
@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
     //validate info
     if (!this.firstName) {
       this.toastr.warning('enter first name')
-     
+
 
     } else if (!this.lastName) {
       this.toastr.warning('enter last name')
@@ -78,9 +78,9 @@ export class SignupComponent implements OnInit {
     }
      else if (!this.password) {
       this.toastr.warning('enter password')
-     
 
-    } 
+
+    }
 
      else {
 
@@ -90,10 +90,10 @@ export class SignupComponent implements OnInit {
         mobile: this.countryCode + this.mobile,
         email: this.email,
         password: this.password,
-      
+
       }
 
-       this.SpinnerService.show(); 
+       this.SpinnerService.show();
 
      // console.log(data);
 
@@ -108,7 +108,7 @@ export class SignupComponent implements OnInit {
 
             setTimeout(() => {
 
-              this.router.navigate(['check-email'])
+              this.router.navigate(['login'])
 
             }, 2000);
 
@@ -116,16 +116,16 @@ export class SignupComponent implements OnInit {
               setTimeout(() => {
                 this.toastr.error(apiResponse.message)
                 this.router.navigate(['/page-not-found']);
-    
+
               },1000);
-             
+
             }
             else if(apiResponse.status===500){
               setTimeout(()=>{
                 this.toastr.error(apiResponse.message)
                 this.router.navigate(['/server-error']);
               },1000)
-              
+
             }
 
             else if(apiResponse.status===400){
@@ -133,7 +133,7 @@ export class SignupComponent implements OnInit {
                 this.toastr.error(apiResponse.message)
                 this.router.navigate(['/server-error']);
               },1000)
-              
+
             }
 
             else if(apiResponse.status===403){
@@ -142,15 +142,15 @@ export class SignupComponent implements OnInit {
                 this.router.navigate(['/login']);
                 //this.router.navigate(['/server-error']);
               },1000)
-              
+
             }
             else {
               this.SpinnerService.hide();
               this.toastr.error(apiResponse.message,'error occured');
-  
+
             }
 
-          
+
 
         }, (err) => {
 
@@ -160,7 +160,7 @@ export class SignupComponent implements OnInit {
 
         });
 
-        
+
 
     } // end condition
 
