@@ -1,5 +1,5 @@
-# HackerEarh
-ToDoList
+# ToDoList
+
 [![HitCount](http://hits.dwyl.com/akheelsajjan/https://githubcom/akheelsajjan/HackerEarh.svg)](http://hits.dwyl.com/akheelsajjan/https://githubcom/akheelsajjan/HackerEarh)
 
 Project Name - Real Time To do List
